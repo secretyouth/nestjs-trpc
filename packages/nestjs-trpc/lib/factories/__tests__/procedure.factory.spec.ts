@@ -3,7 +3,7 @@ import { ProcedureFactory } from '../procedure.factory';
 import { ConsoleLogger } from '@nestjs/common';
 import { MetadataScanner, ModuleRef } from '@nestjs/core';
 import { z } from 'zod';
-import { ProcedureBuilder, TRPCError, initTRPC } from '@trpc/server';
+import { TRPCError, initTRPC } from '@trpc/server';
 import { ProcedureFactoryMetadata, ProcedureParamDecoratorType } from '../../interfaces/factory.interface';
 import { TRPCMiddleware } from '../../interfaces';
 import { Ctx, Input, UseMiddlewares, Options, Query } from '../../decorators';
@@ -140,14 +140,14 @@ describe('ProcedureFactory', () => {
         },
       ];
 
-      const mockInstance = { 
+      const mockInstance = {
         constructor: class UserRouter {},
         getUserById: jest.fn(),
       };
 
       const t = initTRPC.context().create();
-      const mockProcedureBuilder: ProcedureBuilder<any> = t.procedure;
-      
+      const mockProcedureBuilder: any = t.procedure;
+
       (moduleRef.get as jest.Mock).mockReturnValue(mockInstance);
 
       const result = procedureFactory.serializeProcedures(
@@ -159,19 +159,20 @@ describe('ProcedureFactory', () => {
       );
 
       expect(result).toHaveProperty('getUserById');
-      
+
       expect(typeof result.getUserById).toBe('function');
       expect(result.getUserById._def).toBeDefined();
       expect(result.getUserById._def.inputs).toBeDefined();
       expect(result.getUserById._def.output).toBeDefined();
-      
+
       expect(result.getUserById._def.inputs[0]).toEqual(mockProcedures[0].input);
       expect(result.getUserById._def.output).toEqual(mockProcedures[0].output);
 
       // The middleware number here is 3 and not 1 because we append the input and output middlewares before the `ProtectedMiddleware`.
       expect(result.getUserById._def.middlewares.length).toBe(3);
 
-      expect(result.getUserById._def.query).toBeDefined();
+      // In v11, the internal structure changed - just verify it's a valid procedure
+      expect(result.getUserById._def.type).toBe('query');
     });
   });
 });

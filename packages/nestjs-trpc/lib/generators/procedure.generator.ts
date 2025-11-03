@@ -70,7 +70,8 @@ export class ProcedureGenerator {
         const importedIdentifier = importsMap.get(identifierName);
 
         if (importedIdentifier != null) {
-          const { initializer, sourceFile: importedSourceFile } = importedIdentifier;
+          const { initializer, sourceFile: importedSourceFile } =
+            importedIdentifier;
 
           // Handle external imports (workspace packages, node_modules)
           if (initializer == null || importedSourceFile == null) {

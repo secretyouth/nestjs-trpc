@@ -54,8 +54,7 @@ export class TRPCDriver<
   constructor(private moduleRef: ModuleRef) {}
 
   public async start(options: TRPCModuleOptions) {
-    //@ts-expect-error Ignoring typescript here since it's the same type, yet it still isn't able to infer it.
-    const { procedure, router } = initTRPC.context().create({
+    const { procedure, router } = initTRPC.context<any>().create({
       ...(options.transformer != null
         ? { transformer: options.transformer }
         : {}),

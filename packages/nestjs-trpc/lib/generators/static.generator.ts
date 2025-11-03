@@ -52,7 +52,8 @@ export class StaticGenerator {
 
       // Handle external/workspace imports (e.g., @repo/trpc/schemas)
       if (importMapMetadata.moduleSpecifier != null) {
-        const existing = importsByModule.get(importMapMetadata.moduleSpecifier) || [];
+        const existing =
+          importsByModule.get(importMapMetadata.moduleSpecifier) || [];
         existing.push(schemaImportName);
         importsByModule.set(importMapMetadata.moduleSpecifier, existing);
         continue;

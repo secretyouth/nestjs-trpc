@@ -124,8 +124,9 @@ export class ProcedureFactory {
         strict: false,
       });
       if (typeof customProcedureInstance.use === 'function') {
-        //@ts-expect-error this is expected since the type is correct.
-        procedure = procedure.use((opts) => customProcedureInstance.use(opts));
+        procedure = procedure.use((opts: any) =>
+          customProcedureInstance.use(opts),
+        );
       }
     }
     return procedure;
@@ -179,8 +180,12 @@ export class ProcedureFactory {
       );
     };
 
-    return type === ProcedureType.Mutation
-      ? procedureWithOutput.mutation(procedureInvocation as any)
-      : procedureWithOutput.query(procedureInvocation as any);
+    if (type === ProcedureType.Mutation) {
+      return procedureWithOutput.mutation(procedureInvocation as any);
+    } else if (type === ProcedureType.Subscription) {
+      return procedureWithOutput.subscription(procedureInvocation as any);
+    } else {
+      return procedureWithOutput.query(procedureInvocation as any);
+    }
   }
 }

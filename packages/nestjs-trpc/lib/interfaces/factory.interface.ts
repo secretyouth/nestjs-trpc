@@ -1,10 +1,4 @@
-import type {
-  ProcedureRouterRecord,
-  AnyRouter,
-  ProcedureBuilder,
-  ProcedureType,
-  ProcedureParams,
-} from '@trpc/server';
+import type { AnyRouter, ProcedureType } from '@trpc/server';
 import type { ZodSchema, ZodType, ZodTypeDef } from 'zod';
 import type { TRPCMiddleware } from './middleware.interface';
 import type { Class, Constructor } from 'type-fest';
@@ -71,8 +65,8 @@ export interface RoutersFactoryMetadata {
   procedures: Array<ProcedureFactoryMetadata>;
 }
 
-export type TRPCRouter = <TProcRouterRecord extends ProcedureRouterRecord>(
+export type TRPCRouter = <TProcRouterRecord extends Record<string, any>>(
   procedures: TProcRouterRecord,
 ) => AnyRouter;
 
-export type TRPCPublicProcedure = ProcedureBuilder<ProcedureParams>;
+export type TRPCPublicProcedure = any;
