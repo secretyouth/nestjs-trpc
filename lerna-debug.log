@@ -1,0 +1,10 @@
+28 error ExitPromptError: User force closed the prompt with SIGINT
+28 error     at Interface.sigint (/Users/jamiehayman/Development/nestjs-trpc/.yarn/__virtual__/@inquirer-core-virtual-8f2a65b68b/3/.yarn/berry/cache/@inquirer-core-npm-10.3.0-252485c8d0-10c0.zip/node_modules/@inquirer/core/dist/commonjs/lib/create-prompt.js:101:37)
+28 error     at Interface.emit (node:events:518:28)
+28 error     at [_ttyWrite] [as _ttyWrite] (node:internal/readline/interface:1125:18)
+28 error     at ReadStream.onkeypress (node:internal/readline/interface:264:20)
+28 error     at ReadStream.emit (node:events:530:35)
+28 error     at emitKeys (node:internal/readline/utils:371:14)
+28 error     at emitKeys.next (<anonymous>)
+28 error     at ReadStream.onData (node:internal/readline/emitKeypressEvents:64:36)
+28 error     at ReadStream.emit (node:events:518:28)

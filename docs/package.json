@@ -1,6 +1,7 @@
 {
   "name": "nestjs-trpc.io",
   "version": "1.0.0",
+  "private": true,
   "main": ".next/index.js",
   "scripts": {
     "build": "rimraf .next && rimraf .out && next build && next-sitemap",
